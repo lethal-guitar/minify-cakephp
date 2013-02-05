@@ -22,12 +22,17 @@ class MinifyController extends MinifyAppController {
 		$plugins = array();
 		$symLinks = array();
 		$newFiles = array();
-		
+
+		// Prevent "view not found" errors
+		// in those cases where Minify library
+		// does not answer the request
 		$this->autoRender = false;
 		$this->layout = 'empty';
 
-		if (! empty($baseUrl)) {
-			$symLinks['/' . $baseUrl] = WWW_ROOT;
+		$allPlugins = App::objects('plugin');
+
+		if (! empty($this->base)) {
+			$symLinks['/' . $this->base] = WWW_ROOT;
 		}
 
 		foreach ($files as &$file) {
@@ -36,23 +41,20 @@ class MinifyController extends MinifyAppController {
 			}
 
 			$plugin = false;
-			// TODO: Get plugin handling to work
-			/*
 			list($first, $second) = pluginSplit($file);
-			if (CakePlugin::loaded($first) === true) {
+			if (in_array($first, $allPlugins)) {
 				$file = $second;
 				$plugin = $first;
-			}*/
+			}
 
 			$pluginPath = (! empty($plugin) ? '../plugins/' . $plugin . '/' . WEBROOT_DIR . '/' : '');
 			$file = $pluginPath . $type . '/' . $file . '.' . $type;
 			$newFiles[] = $file;
 
-            /*
 			if (! empty($plugin) && ! isset($plugins[$plugin])) {
 				$plugins[$plugin] = true;
-				$symLinks['/' . $baseUrl . '/' . Inflector::underscore($plugin)] = APP . 'plugin/' . $plugin . '/' . WEBROOT_DIR . '/';
-			}*/
+				$symLinks['/' . $this->base . '/' . Inflector::underscore($plugin)] = APP . 'plugin/' . $plugin . '/' . WEBROOT_DIR . '/';
+			}
 		}
 
 		$_GET['f'] = implode(',', $newFiles);
