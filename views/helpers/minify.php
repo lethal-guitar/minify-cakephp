@@ -1,6 +1,4 @@
 <?php
-App::uses('AppHelper', 'View/Helper');
-
 /**
  * Cakephp view helper to interface with http://code.google.com/p/minify/ project.
  * Minify: Combines, minifies, and caches JavaScript and CSS files on demand to speed up page loads.

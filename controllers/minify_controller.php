@@ -6,9 +6,10 @@
  *
  * @package		app.Controller
  */
-class MinifyController extends Controller {
+class MinifyController extends MinifyAppController {
 
 	public $name = 'Minify';
+	public $uses = array();
 
 	/**
 	 * Take care of any minifying requests.
@@ -21,9 +22,12 @@ class MinifyController extends Controller {
 		$plugins = array();
 		$symLinks = array();
 		$newFiles = array();
+		
+		$this->autoRender = false;
+		$this->layout = 'empty';
 
-		if (! empty($this->request->base)) {
-			$symLinks['/' . $this->request->base] = WWW_ROOT;
+		if (! empty($baseUrl)) {
+			$symLinks['/' . $baseUrl] = WWW_ROOT;
 		}
 
 		foreach ($files as &$file) {
@@ -32,29 +36,29 @@ class MinifyController extends Controller {
 			}
 
 			$plugin = false;
+			// TODO: Get plugin handling to work
+			/*
 			list($first, $second) = pluginSplit($file);
 			if (CakePlugin::loaded($first) === true) {
 				$file = $second;
 				$plugin = $first;
-			}
+			}*/
 
-			$pluginPath = (! empty($plugin) ? '../Plugin/' . $plugin . '/' . WEBROOT_DIR . '/' : '');
+			$pluginPath = (! empty($plugin) ? '../plugins/' . $plugin . '/' . WEBROOT_DIR . '/' : '');
 			$file = $pluginPath . $type . '/' . $file . '.' . $type;
 			$newFiles[] = $file;
 
+            /*
 			if (! empty($plugin) && ! isset($plugins[$plugin])) {
 				$plugins[$plugin] = true;
-				$symLinks['/' . $this->request->base . '/' . Inflector::underscore($plugin)] = APP . 'Plugin/' . $plugin . '/' . WEBROOT_DIR . '/';
-			}
+				$symLinks['/' . $baseUrl . '/' . Inflector::underscore($plugin)] = APP . 'plugin/' . $plugin . '/' . WEBROOT_DIR . '/';
+			}*/
 		}
 
 		$_GET['f'] = implode(',', $newFiles);
 		$_GET['symlinks'] = $symLinks;
 
 		App::import('Vendor', 'Minify.minify/index');
-
-		$this->response->statusCode('304');
-		exit();
 	}
 
 }
