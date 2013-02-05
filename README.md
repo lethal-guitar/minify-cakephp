@@ -4,6 +4,14 @@ Copyright 2012, Maury M. Marques
 Licensed under The MIT License
 Redistributions of files must retain the above copyright notice.
 
+## CakePHP 1.3 back port
+
+This fork is a port to make the plugin usable in CakePHP 1.3. Since that version does not recognize routes set by a plugin, the following snippet has to be inserted into the application's `config/routes.php`:
+
+```php
+    Router::connect('/min-js', array('plugin' => 'Minify', 'controller' => 'minify', 'action' => 'index', 'js'));
+    Router::connect('/min-css', array('plugin' => 'Minify', 'controller' => 'minify', 'action' => 'index', 'css'));
+```
 
 ### Minify
 
