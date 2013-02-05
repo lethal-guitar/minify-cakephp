@@ -4,7 +4,7 @@ Copyright 2012, Maury M. Marques
 Licensed under The MIT License
 Redistributions of files must retain the above copyright notice.
 
-## CakePHP 1.3 back port
+### CakePHP 1.3 back port by lethal_guitar
 
 This fork is a port to make the plugin usable in CakePHP 1.3. Since that version does not recognize routes set by a plugin, the following snippet has to be inserted into the application's `config/routes.php`:
 
