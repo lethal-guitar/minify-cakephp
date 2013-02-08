@@ -1,17 +1,11 @@
-# Minify plugin for CakePHP
+# Minify plugin for CakePHP 1.3
 
-Copyright 2012, Maury M. Marques
-Licensed under The MIT License
-Redistributions of files must retain the above copyright notice.
+This fork is a port to make the [Minify plugin](https://github.com/maurymmarques/minify-cakephp) by @maurymmarques usable in CakePHP 1.3.  
+Original copyright notice:
 
-### CakePHP 1.3 back port by lethal_guitar
-
-This fork is a port to make the plugin usable in CakePHP 1.3. Since that version does not recognize routes set by a plugin, the following snippet has to be inserted into the application's `config/routes.php`:
-
-```php
-    Router::connect('/min-js', array('plugin' => 'Minify', 'controller' => 'minify', 'action' => 'index', 'js'));
-    Router::connect('/min-css', array('plugin' => 'Minify', 'controller' => 'minify', 'action' => 'index', 'css'));
-```
+Copyright 2012, Maury M. Marques  
+Licensed under The MIT License  
+Redistributions of files must retain the above copyright notice.  
 
 ### Minify
 
@@ -19,12 +13,11 @@ This fork is a port to make the plugin usable in CakePHP 1.3. Since that version
 
 More info: http://code.google.com/p/minify
 
-For this plugin, the application Minify is inside Vendor
+For this plugin, the application Minify is inside vendors
 
 ### Version
 
-Written for CakePHP 2.0+
-
+This fork is for CakePHP 1.3 - the original version is written for CakePHP 2.0+.
 
 ### Installation
 
@@ -32,16 +25,15 @@ You can clone the plugin into your project (or if you want you can use as a [sub
 
 ```
 cd path/to/app/Plugin or /plugins
-git clone https://github.com/maurymmarques/minify-cakephp.git Minify
+git clone https://github.com/lethal-guitar/minify-cakephp.git minify
 ```
 
-Bootstrap the plugin in app/Config/bootstrap.php:
+Since CakePHP 1.3 does not recognize routes set by a plugin, the following snippet has to be inserted into the application's `config/routes.php`:
 
 ```php
-<?php
-CakePlugin::load(array('Minify' => array('routes' => true)));
+    Router::connect('/min-js', array('plugin' => 'Minify', 'controller' => 'minify', 'action' => 'index', 'js'));
+    Router::connect('/min-css', array('plugin' => 'Minify', 'controller' => 'minify', 'action' => 'index', 'css'));
 ```
-
 
 ### Configuration
 
@@ -69,7 +61,7 @@ class BakeriesController extends AppController {
 }
 ```
 
-This plugin uses [HtmlHelper](http://book.cakephp.org/2.0/en/core-libraries/helpers/html.html), and works virtually the same.
+This plugin uses [HtmlHelper](http://book.cakephp.org/1.3/en/The-Manual/Core-Helpers/HTML.html), and works virtually the same.
 
 In the view you can use something like:
 
