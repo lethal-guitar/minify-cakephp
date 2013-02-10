@@ -24,15 +24,14 @@ This fork is for CakePHP 1.3 - the original version is written for CakePHP 2.0+.
 You can clone the plugin into your project (or if you want you can use as a [submodule](http://help.github.com/submodules)):
 
 ```
-cd path/to/app/Plugin or /plugins
+cd path/to/app/plugins or /plugins
 git clone https://github.com/lethal-guitar/minify-cakephp.git minify
 ```
 
-Since CakePHP 1.3 does not recognize routes set by a plugin, the following snippet has to be inserted into the application's `config/routes.php`:
+CakePHP 1.3 automatically loads all plugins, but does not recognize routes set by a plugin. Thus, the following snippet has to be inserted into the application's `config/routes.php`:
 
 ```php
-    Router::connect('/min-js', array('plugin' => 'Minify', 'controller' => 'minify', 'action' => 'index', 'js'));
-    Router::connect('/min-css', array('plugin' => 'Minify', 'controller' => 'minify', 'action' => 'index', 'css'));
+App::import('Plugin', 'minify.config/routes');
 ```
 
 ### Configuration
