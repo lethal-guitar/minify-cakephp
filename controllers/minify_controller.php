@@ -48,7 +48,13 @@ class MinifyController extends MinifyAppController {
 			}
 
 			$pluginPath = (! empty($plugin) ? '../plugins/' . $plugin . '/' . WEBROOT_DIR . '/' : '');
-			$file = $pluginPath . $type . '/' . $file . '.' . $type;
+			if ($file[0] == '/') {
+				// Paths starting with a '/' should be treated
+				// relative to the application's webroot
+				$file = $file . '.' . $type;
+			} else {
+				$file = $pluginPath . $type . '/' . $file . '.' . $type;
+			}
 			$newFiles[] = $file;
 
 			if (! empty($plugin) && ! isset($plugins[$plugin])) {
